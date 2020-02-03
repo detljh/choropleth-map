@@ -29,8 +29,7 @@ header {
 }
 
 path:hover {
-    fill-opacity: 0.1;
-    stroke-width: 2;
+    fill: red;
 }
 
 #tooltip {
