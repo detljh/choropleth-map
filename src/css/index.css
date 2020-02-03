@@ -40,5 +40,5 @@ path:hover {
     font-size: 0.7em;
     opacity: 0;
     border-radius: 5px;
-    box-shadow: 0 0 5px 1px hsl(30, 100%, 50%);
+    box-shadow: 0 0 5px 1px hsl(30, 50%, 50%);
 }

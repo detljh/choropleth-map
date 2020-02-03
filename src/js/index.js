@@ -6,10 +6,9 @@ function getData(url) {
     .then(data => data);
 }
 
-const colors = ["hsl(30, 100%, 90%)", "hsl(30, 100%, 80%)", "hsl(30, 100%, 70%)", "hsl(30, 100%, 60%)", "hsl(30, 100%, 50%)", "hsl(30, 100%, 40%)", "hsl(30, 100%, 30%)", "hsl(30, 100%, 20%)"];
-
 let width = 960;
 let height= 600;
+let domainNum = 8;
 let svg = d3.select("svg")
             .attr("width", width)
             .attr("height", height);
@@ -18,12 +17,17 @@ let path = d3.geoPath();
 
 let data = d3.map();
 
-let x = d3.range(0, 100, 100/8);
-
+let x = d3.range(100/domainNum, 100, 100/domainNum);
 let scale = d3.scaleLinear()
         .domain([0, 100])
         .range([600, 880]);
-        
+
+const colors = [];
+for (let i = domainNum + 1; i > 0; i--) {
+    let color = `hsl(30, 50%, ${i*(100/(domainNum+1))-5}%)`;
+    colors.push(color);
+}
+
 let colorScale = d3.scaleThreshold()
     .domain(x)
     .range(colors);
@@ -49,7 +53,7 @@ legend.selectAll("rect")
 legend.call(d3.axisBottom(scale)
                 .tickSize(16)
                 .tickFormat((x) => Math.round(x) + "%")
-                .tickValues(colorScale.domain()))
+                .tickValues([0, ...x]))
                 .select(".domain")
                 .remove();
 
@@ -64,8 +68,6 @@ let county = getData("https://cdn.freecodecamp.org/testable-projects-fcc/data/ch
 Promise.all([education, county]).then((data) => {
     education = data[0];
     county = data[1];
-    console.log(education);
-    console.log(county);
     svg.append("g")
         .attr("class", "counties")
         .selectAll("path")
