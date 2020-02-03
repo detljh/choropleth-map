@@ -1,20 +1,31 @@
 const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    mode: 'development',
-    entry: [
-      './src/js/index.js',
-      './src/css/index.css'
-    ],
-    output: {
-      path: path.resolve(__dirname, "public"),
-    filename: "bundle.js"
+    mode: 'production',
+    entry: {
+      index: './src/js/index.js',
+      d3: './src/js/d3.js'
     },
+    output: {
+      path: path.resolve(__dirname, "build"),
+      filename: "static/js/[name].bundle.js",
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        title: 'Choropleth Map',
+        template: 'public/index.html',
+      }),
+      new MiniCssExtractPlugin({
+        filename: 'static/css/[name].css'
+      })
+    ],
     module: {
       rules: [
         {
           test: /\.js$/,
-          exclude: /node_modules/,
+          include: path.resolve(__dirname, "src/js"),
           loader: "babel-loader",
           options: {
             presets: ["babel-preset-env"]
@@ -22,13 +33,12 @@ module.exports = {
         },
         {
           test: /\.css$/,
+          include: path.resolve(__dirname, "src/css"),
           use: [
             {
-              loader: "style-loader"
+              loader: MiniCssExtractPlugin.loader
             },
-            {
-              loader: "css-loader"
-            }
+            "css-loader"
           ]
         }
       ]
