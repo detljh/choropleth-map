@@ -22,30 +22,33 @@ let x = d3.range(0, 100, 100/8);
 
 let scale = d3.scaleLinear()
         .domain([0, 100])
-        .range([600, 860]);
+        .range([600, 880]);
         
 let colorScale = d3.scaleThreshold()
     .domain(x)
     .range(colors);
 
-let legend = d3.select("svg")
-                .append("g")
+let legend = svg.append("g")
                 .attr("id", "legend")
-                .attr("transform", "translate(0, 40)")
-                .selectAll("rect")
-                .data(x)
-                .enter()
-                .append("rect")
-                .attr("height", 8)
-                .attr("x", (d, i) => {
-                    return (i*30) + 600;
-                })
-                .attr("width", 30)
-                .attr("fill", (d, i) => colors[i]);
+                .attr("transform", "translate(0, 30)");
+
+let scaleWidth = 35;
+
+legend.selectAll("rect")
+    .data(x)
+    .enter()
+    .append("rect")
+    .attr("height", 10)
+    .attr("x", (d, i) => {
+        return (i*scaleWidth) + 600;
+    })
+    .attr("width", scaleWidth)
+    .attr("fill", (d, i) => colors[i]);
+
 
 legend.call(d3.axisBottom(scale)
-                .tickSize(13)
-                .tickFormat((scale) => Math.round(scale) + "%")
+                .tickSize(16)
+                .tickFormat((x) => Math.round(x) + "%")
                 .tickValues(colorScale.domain()))
                 .select(".domain")
                 .remove();

@@ -10,7 +10,11 @@ main {
     flex-direction: column;
     justify-content: space-around;
     margin: auto;
-    width: 80em;
+    width: 100%;
+}
+
+#description {
+    margin-top: 0;
 }
 
 svg {
