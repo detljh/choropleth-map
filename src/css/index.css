@@ -1,8 +1,40 @@
-body {
+html, body {
     margin: 0;
     height: 100%;
+    font-size: 1em;
+    font-family: 'Arial';
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: auto;
+    width: 80em;
+}
+
+svg {
+    margin: auto;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
 }
 
 path:hover {
     fill-opacity: 0.1;
+    stroke-width: 2;
+}
+
+#tooltip {
+    background-color: white;
+    position: absolute;
+    padding: 1em;
+    font-size: 0.7em;
+    opacity: 0;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 1px hsl(30, 100%, 50%);
 }
