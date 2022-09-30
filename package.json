@@ -5,7 +5,7 @@
   "homepage": "https://detljh.github.io/choropleth-map",
   "dependencies": {
     "css-loader": "^3.4.2",
-    "d3": "^5.15.0",
+    "d3": "^7.6.1",
     "gh-pages": "^2.2.0"
   },
   "scripts": {
